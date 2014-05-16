@@ -1,9 +1,15 @@
 /**
  * Board.java
  *
- * Purpose of the program (brief description)
+ * Create Board class with default and complete
+ * constructors. Generates a 20x20 board with
+ * 100 Ants and 5 Doodlebugs by default.
+ * Contains methods to initialize the board,
+ * check if a cell is occupied, place a bug in
+ * a cell, and print out the board.
  * 
- * Project 2 due Date
+ * 
+ * Project 2 due May 26, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014
@@ -25,7 +31,7 @@ public class Board {
 	{
 		this.numberOfAnts = 100;
 		this.numberOfDoodlebugs = 5;
-		initializeField(this.numberOfAnts, this.numberOfDoodlebugs);
+		initializeBoard(this.numberOfAnts, this.numberOfDoodlebugs);
 	}
 	
 	//Complete Constructor
@@ -33,12 +39,12 @@ public class Board {
 	{
 		this.numberOfAnts = ants;
 		this.numberOfDoodlebugs = doodlebugs;
-		initializeField(this.numberOfAnts, this.numberOfDoodlebugs);
+		initializeBoard(this.numberOfAnts, this.numberOfDoodlebugs);
 		
 	}
 	
 	//Fill with EmptyBugs first, then Ants, then Doodlebugs
-	public void initializeField(int numAnt, int numDoodlebugs)
+	public void initializeBoard(int numAnt, int numDoodlebugs)
 	{
 		//Fill field with EmptyBug
 		for(int i = 0; i < this.field.length; i++)

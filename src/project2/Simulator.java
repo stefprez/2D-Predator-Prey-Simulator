@@ -1,9 +1,10 @@
 /**
  * Simulator.java
  *
- * Purpose of the program (brief description)
+ * Contains main method to test the other classes of
+ * Project 2.
  * 
- * Project 2 due Date
+ * Project 2 due May 26, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014

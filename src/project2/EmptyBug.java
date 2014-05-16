@@ -1,9 +1,9 @@
 /**
  * EmptyBug.java
  *
- * Purpose of the program (brief description)
+ * Create the EmptyBug subclass and default constructor
  * 
- * Project 2 due Date
+ * Project 2 due May 26, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014

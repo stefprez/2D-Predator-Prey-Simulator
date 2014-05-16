@@ -1,9 +1,10 @@
 /**
  * Organism.java
  *
- * Purpose of the program (brief description)
+ * Create the Organism superclass with default constructor and
+ * getSymbol method.
  * 
- * Project 2 due Date
+ * Project 2 due May 26, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014

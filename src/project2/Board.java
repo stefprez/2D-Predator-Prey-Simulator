@@ -47,13 +47,13 @@ public class Board {
 	public void initializeBoard(int numAnt, int numDoodlebugs)
 	{
 		//Fill field with EmptyBug
-		for(int i = 0; i < this.field.length; i++)
-		{
-			for(int j = 0; j < this.field[i].length; j++)
-			{
-				field[i][j] = new EmptyBug();
-			}
-		}
+//		for(int i = 0; i < this.field.length; i++)
+//		{
+//			for(int j = 0; j < this.field[i].length; j++)
+//			{
+//				field[i][j] = new EmptyBug();
+//			}
+//		}
 		
 		//Place Ants in field
 		for (int i = 0; i < numAnt; i++)
@@ -77,7 +77,7 @@ public class Board {
 		//System.out.println("isOccupied conditional says: " + (this.field[row][col].symbol != ' ')); //Debugging
 		
 		//Check for EmptyBug symbol in given field index
-		if (this.field[row][col].symbol != ' ')
+		if (this.field[row][col] != null)
 		{
 			//System.out.println("isOccupied returned true"); //Debug
 			return true;
@@ -138,7 +138,14 @@ public class Board {
 		{
 			for(int j = 0; j < this.field[i].length; j++)
 			{
+				if (field[i][j] == null)
+				{
+					System.out.print("-");
+				}
+				else
+				{
 				System.out.print(field[i][j].symbol);
+				}
 			}
 			System.out.println();
 		}

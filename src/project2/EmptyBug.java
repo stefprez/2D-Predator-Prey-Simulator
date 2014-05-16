@@ -1,7 +1,8 @@
 /**
  * EmptyBug.java
  *
- * Create the EmptyBug subclass and default constructor
+ * Create the EmptyBug subclass and default constructor.
+ * Probably unnecessary, and can remove by checking for null.
  * 
  * Project 2 due May 26, 2014
  * 

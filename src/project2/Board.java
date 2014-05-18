@@ -45,16 +45,7 @@ public class Board {
 	
 	//Fill with EmptyBugs first, then Ants, then Doodlebugs
 	public void initializeBoard(int numAnt, int numDoodlebugs)
-	{
-		//Fill field with EmptyBug
-//		for(int i = 0; i < this.field.length; i++)
-//		{
-//			for(int j = 0; j < this.field[i].length; j++)
-//			{
-//				field[i][j] = new EmptyBug();
-//			}
-//		}
-		
+	{		
 		//Place Ants in field
 		for (int i = 0; i < numAnt; i++)
 		{
@@ -76,7 +67,7 @@ public class Board {
 	{
 		//System.out.println("isOccupied conditional says: " + (this.field[row][col].symbol != ' ')); //Debugging
 		
-		//Check for EmptyBug symbol in given field index
+		//Check for null value in given field index
 		if (this.field[row][col] != null)
 		{
 			//System.out.println("isOccupied returned true"); //Debug
@@ -113,14 +104,15 @@ public class Board {
 		if(bug instanceof Ant)
 		{
 			//System.out.println("placeBug placed an Ant"); //Debug
-			this.field[row][col] = new Ant();
+			this.field[row][col] = new Ant(row, col);
+			
 		}
 		
 		//Place a new Doodlebug in open cell
 		else if(bug instanceof Doodlebug)
 		{
 			//System.out.println("placeBug placed a DoodleBug");  //Debug
-			this.field[row][col]= new Doodlebug();
+			this.field[row][col]= new Doodlebug(row, col);
 		}
 		
 		//Error catching
@@ -129,25 +121,47 @@ public class Board {
 			System.out.println("Error in placeBug method! Did not place a bug in an open cell.");
 		}
 	}
-
+	
+	public Organism getBug(int row, int col)
+	{
+		return this.field[row][col];
+	}
+	
 	//Print out the current board with different bug symbols
 	public void printBoard()
 	{
 		//System.out.println(this.field.length); //debug
+		
+		//Top row border
+		System.out.println("----------------------");
+		
 		for(int i = 0; i < this.field.length; i++)
 		{
+			//Left edge border
+			System.out.print("|");
+			
 			for(int j = 0; j < this.field[i].length; j++)
 			{
+				//Print whitespace if empty cell
 				if (field[i][j] == null)
 				{
-					System.out.print("-");
+					System.out.print(" ");
 				}
+				
+				//Print symbol for occupying bug
 				else
 				{
 				System.out.print(field[i][j].symbol);
 				}
 			}
-			System.out.println();
+			//Right edge border
+			System.out.print("|");
+			
+			//Prevent printing last empty line
+			if (i < this.field.length - 1)
+				System.out.println();
 		}
+		//Bottom row border
+		System.out.println("\n----------------------");
 	}
 }

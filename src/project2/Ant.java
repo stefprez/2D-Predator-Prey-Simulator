@@ -12,10 +12,19 @@ package project2;
 
 public class Ant extends Organism
 {
+	
 	public Ant()
 	{
 		super();
 		this.symbol = 'O';
+		this.breedThreshold = 3;
+	}
+	
+	public Ant(int row, int col)
+	{
+		super(row, col);
+		this.symbol = 'O';
+		this.breedThreshold = 3;
 	}
 	
 	public void move()

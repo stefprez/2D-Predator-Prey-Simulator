@@ -11,6 +11,9 @@
  */
 package project2;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Simulator {
 	
 	public void turnSequence()
@@ -34,5 +37,29 @@ public class Simulator {
 		
 		//Print out testBoard
 		testBoard.printBoard();
+		
+		Integer[] testArray = new Integer[] {1, 2, 3, 4};
+		
+		for (Integer i : testArray)
+		{
+			System.out.print(i);
+		}
+		System.out.println();
+		
+		Collections.shuffle(Arrays.asList(testArray));
+		
+		for (Integer i : testArray)
+		{
+			System.out.print(i);
+		}
+		
+		System.out.println();
+		
+		Integer[] testAr = Board.randomDirections();
+		
+		for (int i = 0; i < 4; i++)
+		{
+			System.out.print(testAr[i]);
+		}
 	}
 }

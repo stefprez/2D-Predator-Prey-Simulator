@@ -49,5 +49,13 @@ public class Organism
 		return this.colPosition;
 	}
 	
+	public void setRowPosition(int row)
+	{
+		this.rowPosition = row;
+	}
 	
+	public void setColPosition(int col)
+	{
+		this.colPosition = col;
+	}
 }

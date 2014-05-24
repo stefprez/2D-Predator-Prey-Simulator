@@ -27,6 +27,11 @@ public class Ant extends Organism
 		this.breedThreshold = 3;
 	}
 	
+	public Ant (Ant a)
+	{
+		super(a);
+	}
+	
 //	Integer[] directionOrder = Board.randomDirections();
 	
 	public void moveBug(int direction)

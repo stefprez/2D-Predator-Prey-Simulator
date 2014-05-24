@@ -27,6 +27,8 @@ public class Board {
 	int numberOfAnts;
 	int numberOfDoodlebugs;
 	Random randomNumGen = new Random();
+	int rowScan = 0;
+	int colScan = 0;
 	
 	//Default Constructor
 	public Board()
@@ -45,7 +47,7 @@ public class Board {
 		
 	}
 	
-	//Fill with EmptyBugs first, then Ants, then Doodlebugs
+	//Fill with Ants first, then Doodlebugs
 	public void initializeBoard(int numAnt, int numDoodlebugs)
 	{		
 		//Place Ants in field
@@ -83,20 +85,20 @@ public class Board {
 		}
 	}
 	
-	//Place bug in empty cell
+	//Place bug in empty cell. Only for initializing new board!
 	public void placeBug(Organism bug, int numBug)
 	{
 		//Declare and initialize random row and column values
-		int row = randomNumGen.nextInt(19);
-		int col = randomNumGen.nextInt(19);
+		int row = randomNumGen.nextInt(20);
+		int col = randomNumGen.nextInt(20);
 		
 		//int counter = 0; //debug
 		
 		//Cycle through field until an empty cell is found
 		while (this.isOccupied(row, col))
 		{
-			row = randomNumGen.nextInt(19);
-			col = randomNumGen.nextInt(19);
+			row = randomNumGen.nextInt(20);
+			col = randomNumGen.nextInt(20);
 			//counter++; //Debug
 		}
 
@@ -154,28 +156,178 @@ public class Board {
 		return flag;
 	}
 	
-	// Return int of Ant location. 1 = Up, 2 = Right, 4 = Down, 8 = Left. 0 = No Ant.
-	// 3 = Up/Right, 5 = Up/Down, 6 = Right/Down, 7 = Up/Right/Down,
-	// 9 = 8 + 1, 10 = 8 + 2, 11 = 8 + 2 + 1, 12 = 8 + 4
-	// 13 = 8 + 4 + 1, 14 = 8 + 4 + 2, 15 = 8 + 4 + 2 + 1.
-	public int antChecker(Doodlebug db)
+//	// Return int of Ant location. 1 = Up, 2 = Right, 4 = Down, 8 = Left. 0 = No Ant.
+//	// 3 = Up/Right, 5 = Up/Down, 6 = Right/Down, 7 = Up/Right/Down,
+//	// 9 = 8 + 1, 10 = 8 + 2, 11 = 8 + 2 + 1, 12 = 8 + 4
+//	// 13 = 8 + 4 + 1, 14 = 8 + 4 + 2, 15 = 8 + 4 + 2 + 1.
+//	public int antChecker(Doodlebug db)
+//	{
+//		int flag = 0;
+//		
+//		//Check four positions for Ant
+//		if (getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant)
+//			flag += 1;
+//		
+//		if (getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant)
+//			flag += 2;
+//		
+//		if (getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant)
+//			flag += 4;
+//		
+//		if (getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant)
+//			flag += 8;
+//		
+//		return flag;
+//	}
+	
+	//Return true if there is an Ant in an adjacent cell to Doodlebug
+	public boolean antAdjacent(Doodlebug db)
 	{
-		int flag = 0;
-		
+		//Top left corner check
+		if (db.topFlag && db.leftFlag)
+		{
+			if (
+					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		//Bottom right corner check
+		else if (db.bottomFlag && db.rightFlag)
+		{
+			if (
+					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		//Top right corner check
+		else if (db.topFlag && db.rightFlag)
+		{
+			if (
+					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		//Bottom left corner check
+		else if (db.bottomFlag && db.leftFlag)
+		{
+			if (
+					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+		//Top row check
+		else if (db.topFlag)
+		{
+			if (
+					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		//Right column check
+		else if (db.rightFlag)
+		{
+			if (
+					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		//Bottom row check
+		else if (db.bottomFlag)
+		{
+			if (
+					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
+		//Left column check
+		else if (db.leftFlag)
+		{
+			if (
+					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) )
+			{
+				return true;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
+
 		//Check four positions for Ant
-		if (getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant)
-			flag += 1;
-		
-		if (getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant)
-			flag += 2;
-		
-		if (getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant)
-			flag += 4;
-		
-		if (getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant)
-			flag += 8;
-		
-		return flag;
+		else if (
+				(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+				(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+				(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
+				(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
+		{
+			return true;
+		}
+
+		else
+		{
+			return false;
+		}
 	}
 	
 	//Print out the current board with different bug symbols
@@ -196,7 +348,7 @@ public class Board {
 				//Print whitespace if empty cell
 				if (field[i][j] == null)
 				{
-					System.out.print(" ");
+					System.out.print("-");
 				}
 				
 				//Print symbol for occupying bug
@@ -239,34 +391,176 @@ public class Board {
 	}
 	
 	//Use to scan through field and have each Ant perform actions
-	public void antScanner()
+	public int[] antScanner()
 	{
-		for (int i = 0; i < 20; i++)
+		for (int j = colScan; j < 20; j++)
 		{
-			for (int j = 0; j < 20; j++)
+			//Finish partially completed row
+			if (field[this.rowScan][j] instanceof Ant)
 			{
-				if (field[i][j].getClass() ==  new Ant().getClass()) //Perhaps I should use instanceof?
+				//System.out.println("We have an ant! " + this.rowScan + " " + j); //Debug
+				//Check for last column
+				if (this.colScan == field[0].length - 1)
 				{
-					//Do Ant Stuff
+					this.colScan = 0;
+					this.rowScan++;
+					return new int[] {rowScan - 1, field[0].length - 1};
+				}
+				
+				else
+				{
+					this.colScan = j + 1;
+					return new int[] {rowScan, j};
 				}
 			}
 		}
+		
+		this.rowScan++;
+		this.colScan = 0;
+		
+		for (int i = this.rowScan; i < field.length; i++)
+		{
+			for (int j = this.colScan; j < field[0].length; j++)
+			{
+				//if (field[i][j].getClass() ==  new Ant().getClass()) //Perhaps I should use instanceof?
+				if (field[i][j] instanceof Ant)
+				{
+					if (j == field[0].length - 1)
+					{
+						this.colScan = 0;
+						this.rowScan++;
+						return new int[] {i, j};
+					}
+					
+					else
+					{
+						this.colScan = j + 1;
+						return new int[] {i, j};
+					}
+					
+				}
+				
+				else if (j == field[0].length - 1)
+				{
+					this.colScan = 0;
+					this.rowScan++;
+				}
+			}
+		}
+		
+		this.rowScan = 0;
+		this.colScan = 0;
+		return new int[] {-1, -1};
 	}
 	
 	//Use to scan through field and have each Doodlebug perform actions
-	public void doodlebugScanner()
+	public int[] doodlebugScanner()
 	{
-		for (int i = 0; i < 20; i++)
+		for (int j = colScan; j < 20; j++)
 		{
-			for (int j = 0; j < 20; j++)
+			//Finish partially completed row
+			if (field[this.rowScan][j] instanceof Doodlebug)
 			{
-				if (field[i][j].getClass() ==  new Doodlebug().getClass()) //Perhaps I should use instanceof?
+				//System.out.println("We have an ant! " + this.rowScan + " " + j); //Debug
+				//Check for last column
+				if (this.colScan == field[0].length - 1)
 				{
-					//Do Doodlebug Stuff
+					this.colScan = 0;
+					this.rowScan++;
+					return new int[] {rowScan - 1, field[0].length - 1};
+				}
+				
+				else
+				{
+					this.colScan = j + 1;
+					return new int[] {rowScan, j};
 				}
 			}
 		}
+		
+		this.rowScan++;
+		this.colScan = 0;
+		
+		for (int i = this.rowScan; i < field.length; i++)
+		{
+			for (int j = this.colScan; j < field[0].length; j++)
+			{
+				//if (field[i][j].getClass() ==  new Ant().getClass()) //Perhaps I should use instanceof?
+				if (field[i][j] instanceof Doodlebug)
+				{
+					if (j == field[0].length - 1)
+					{
+						this.colScan = 0;
+						this.rowScan++;
+						return new int[] {i, j};
+					}
+					
+					else
+					{
+						this.colScan = j + 1;
+						return new int[] {i, j};
+					}
+					
+				}
+				
+				else if (j == field[0].length - 1)
+				{
+					this.colScan = 0;
+					this.rowScan++;
+				}
+			}
+		}
+		
+		this.rowScan = 0;
+		this.colScan = 0;
+		return new int[] {-1, -1};
 	}
 	
+	//Takes a bug and a movement direction, and moves the bug to the new cell.
+	public void moveBug(Organism bug, int direction)
+	{
+		int rowPos = bug.getRowPosition();
+		int colPos = bug.getColPosition();
+		
+		switch (direction)
+		{
+		case 1:
+			field[rowPos - 1][colPos] = new Organism(bug);
+			getBug(rowPos - 1, colPos).setRowPosition(rowPos - 1);
+			field[rowPos][colPos] = null;
+			rowPos--;
+			break;
+		case 2:
+			field[rowPos][colPos + 1] = new Organism(bug);
+			getBug(rowPos, colPos + 1).setColPosition(colPos + 1);
+			field[rowPos][colPos] = null;
+			colPos++;
+			break;
+		case 3:
+			field[rowPos + 1][colPos] = new Organism(bug);
+			getBug(rowPos + 1, colPos).setRowPosition(rowPos + 1);
+			field[rowPos][colPos] = null;
+			rowPos++;
+			break;
+		case 4:
+			field[rowPos][colPos - 1] = new Organism(bug);
+			getBug(rowPos, colPos - 1).setColPosition(colPos - 1);
+			field[rowPos][colPos] = null;
+			colPos--;
+			break;
+		}
+		
+//		if (bug instanceof Ant)
+//		{
+//			field[rowPos][colPos] = (Ant) field[rowPos][colPos];
+//			//Ant newBug = new Ant ((Ant) bug);
+//		}
+//		
+//		if(bug instanceof Doodlebug)
+//		{
+//			field[rowPos][colPos] = (Doodlebug) field[rowPos][colPos];
+//			//Doodlebug newBug = new Doodlebug ((Doodlebug) bug);
+//		}
+	}
 	
 }

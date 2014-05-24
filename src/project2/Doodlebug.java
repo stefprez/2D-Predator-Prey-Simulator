@@ -30,6 +30,11 @@ public class Doodlebug extends Organism
 		this.breedThreshold = 8;
 	}
 	
+	public Doodlebug(Doodlebug d)
+	{
+		super(d);
+	}
+	
 	//Takes int 1, 2, 3, or 4, and moves bug up, right, down, or left respectively
 	public void moveBug(int direction)
 	{

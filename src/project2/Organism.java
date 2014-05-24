@@ -18,20 +18,38 @@ public class Organism
 	char symbol;
 	int rowPosition;
 	int colPosition;
+	boolean topFlag;
+	boolean rightFlag;
+	boolean bottomFlag;
+	boolean leftFlag;
 	
 	public Organism()
 	{
 		this.rowPosition = -1;
 		this.colPosition = -1;
 		this.timeSinceBreed = 0;
+		this.topFlag = true;
+		this.bottomFlag = true;
+		this.leftFlag = true;
+		this.rightFlag = true;
 		
 	}
 	
 	public Organism(int row, int col)
 	{
-		this.rowPosition = row;
-		this.colPosition = col;
+		this.setRowPosition(row);
+		this.setColPosition(col);
 		this.timeSinceBreed = 0;
+	}
+	
+	//Copy Constructor
+	public Organism(Organism o)
+	{
+		this.breedThreshold = o.breedThreshold;
+		this.timeSinceBreed = o.timeSinceBreed;
+		this.symbol = o.symbol;
+		this.rowPosition = o.rowPosition;
+		this.colPosition = o.colPosition;
 	}
 	
 	public char getSymbol()
@@ -51,11 +69,37 @@ public class Organism
 	
 	public void setRowPosition(int row)
 	{
+		this.topFlag = false;
+		this.bottomFlag = false;
+		
 		this.rowPosition = row;
+		
+		if (row == 0)
+		{
+			this.topFlag = true;
+		}
+		
+		else if(row == 19)
+		{
+			this.bottomFlag = true;
+		}
 	}
 	
 	public void setColPosition(int col)
 	{
+		this.leftFlag = false;
+		this.rightFlag = false;
+		
 		this.colPosition = col;
+		
+		if (col == 0)
+		{
+			this.leftFlag = true;
+		}
+		
+		else if(col == 19)
+		{
+			this.rightFlag = true;
+		}
 	}
 }

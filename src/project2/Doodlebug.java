@@ -13,6 +13,7 @@ package project2;
 public class Doodlebug extends Organism
 {
 	final static int STARVE_THRESHOLD = 3;
+	int timeSinceEat;
 	
 	//Empty Constructor
 	public Doodlebug()
@@ -20,6 +21,7 @@ public class Doodlebug extends Organism
 		super();
 		this.symbol = 'X';
 		this.breedThreshold = 8;
+		this.timeSinceEat = 0;
 	}
 	
 	//Complete Constructor
@@ -28,11 +30,15 @@ public class Doodlebug extends Organism
 		super(row, col);
 		this.symbol = 'X';
 		this.breedThreshold = 8;
+		this.timeSinceEat = 0;
 	}
 	
 	public Doodlebug(Doodlebug d)
 	{
 		super(d);
+		this.symbol = d.symbol;
+		this.breedThreshold = d.breedThreshold;
+		this.timeSinceEat = d.timeSinceEat;
 	}
 	
 	//Takes int 1, 2, 3, or 4, and moves bug up, right, down, or left respectively
@@ -80,5 +86,16 @@ public class Doodlebug extends Organism
 		//If no ant, check for open space
 		//Move to open space
 		//If no open space, do not move
+	}
+	
+	public String toString()
+	{
+		return "Doodlebug at " +  this.getRowPosition() + ", " + this.getColPosition() + "\n" +
+				"topFlag " + this.topFlag + "\n" +
+				"rightFlag " + this.rightFlag + "\n" +
+				"bottomFlag " + this.bottomFlag + "\n" +
+				"leftFlag " + this.leftFlag + "\n" +
+				"timeSinceEat: " + this.timeSinceEat + "\n" +
+				"timeSinceBreed: " + this.timeSinceBreed;
 	}
 }

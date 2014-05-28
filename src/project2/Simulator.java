@@ -52,8 +52,8 @@ public class Simulator {
 					Board.moveBug(Board.getBug(coordinates[0], coordinates[1]), 1);
 					moveComplete = true;
 					Board.numberOfAnts--;
-					db.timeSinceEat = 0;
-					db.timeSinceBreed++;
+					//db.timeSinceEat = 0;
+					//db.timeSinceBreed++;
 				}
 				break;
 			case 2:
@@ -66,8 +66,8 @@ public class Simulator {
 					Board.moveBug(Board.getBug(coordinates[0], coordinates[1]), 2);
 					moveComplete = true;
 					Board.numberOfAnts--;
-					db.timeSinceEat = 0;
-					db.timeSinceBreed++;
+					//db.timeSinceEat = 0;
+					//db.timeSinceBreed++;
 				}
 				break;
 			case 3:
@@ -80,8 +80,8 @@ public class Simulator {
 					Board.moveBug(Board.getBug(coordinates[0], coordinates[1]), 3);
 					moveComplete = true;
 					Board.numberOfAnts--;
-					db.timeSinceEat = 0;
-					db.timeSinceBreed++;
+					//db.timeSinceEat = 0;
+					//db.timeSinceBreed++;
 				}
 				break;
 			case 4:
@@ -94,8 +94,8 @@ public class Simulator {
 					Board.moveBug(Board.getBug(coordinates[0], coordinates[1]), 4);
 					moveComplete = true;
 					Board.numberOfAnts--;
-					db.timeSinceEat = 0;
-					db.timeSinceBreed++;
+					//db.timeSinceEat = 0;
+					//db.timeSinceBreed++;
 				}
 				break;
 			}
@@ -158,7 +158,7 @@ public class Simulator {
 				break;
 			}
 		}
-		db.timeSinceBreed++;
+		//db.timeSinceBreed++;
 	}
 	
 	//Moves ant to random empty adjacent cell
@@ -220,7 +220,7 @@ public class Simulator {
 				break;
 			}
 		}
-		ant.timeSinceBreed++;
+		//ant.timeSinceBreed++;
 	}
 	
 	public static int[][] antPositions()
@@ -271,10 +271,9 @@ public class Simulator {
 	public static void turnSequence(Board testBoard)
 	{
 		int[][] dbPositions = new int[Board.numberOfDoodlebugs][2];
-		//Board.rowScan = 0;
-		//Board.colScan = 0;
 		dbPositions = doodlebugPositions();
 		int[] position = new int[2];
+		
 		//For all the doodlebugs...
 		for (int i = 0; i < Board.numberOfDoodlebugs; i++)
 		{
@@ -282,13 +281,13 @@ public class Simulator {
 			position = dbPositions[i];
 			//position = testBoard.doodlebugScanner();			
 			
+			//Error checking
 			if (position[0] < 0 || position[1] < 0)
 			{
 				System.out.println("-1 from doodlebugScanner"); //debug
 				System.exit(0);
 			}
-			
-			if (position[0] > 19 || position[1] > 19)
+			else if (position[0] > 19 || position[1] > 19)
 			{
 				System.out.println("20 from doodlebugScanner"); //debug
 				System.exit(0);
@@ -296,15 +295,20 @@ public class Simulator {
 			
 			//System.out.println("Testing DB at " + position[0] + ", " + position[1]);
 			//Eat Ant if necessary
-			if (testBoard.antAdjacent((Doodlebug)Board.getBug(position[0], position[1])))
+			if (testBoard.antAdjacent((Doodlebug)Board.getBug(position)))
 			{
+				Doodlebug db = (Doodlebug)Board.getBug(position);
+				db.timeSinceEat = 0;
+				db.timeSinceBreed++;
 				eatAnt(position);
+				
 			}
 			else
 			{
 				//Else move doodlebug
 				Doodlebug db = (Doodlebug)Board.getBug(position);
 				db.timeSinceEat++;
+				db.timeSinceBreed++;
 				moveDoodlebug(position);
 			}
 			
@@ -312,10 +316,12 @@ public class Simulator {
 			
 		}
 		//System.exit(0); //STOP
-		//for (all the ants) {
+		
+//*****   ANTS ******
 		int[][] antPositions = new int[Board.numberOfAnts][2];
 		antPositions = antPositions();
 		
+		//Loop through all the ants
 		for (int i = 0; i < Board.numberOfAnts; i++)
 		{
 			//Get Ant position
@@ -328,6 +334,8 @@ public class Simulator {
 			//System.out.println("Ant at " + position[0] + ", " + position[1]);
 
 			//Move Ant
+			Ant ant = (Ant)Board.getBug(position);
+			ant.timeSinceBreed++;
 			moveAnt(position);
 			
 			//testBoard.printBoard();
@@ -340,7 +348,8 @@ public class Simulator {
 		
 		//For all the doodlebugs...
 		dbPositions = doodlebugPositions();
-		for (int i = 0; i < Board.numberOfDoodlebugs; i++)
+		int tempNumberOfDoodlebugs = Board.numberOfDoodlebugs;
+		for (int i = 0; i < tempNumberOfDoodlebugs; i++)
 		{
 			//Get Doodlebug Coordinates
 			//position = Board.doodlebugScanner();		
@@ -349,17 +358,19 @@ public class Simulator {
 			int col = position[1];
 			
 			if (row < 0 || col < 0)
+			{
 				break;
-			
+			}
 			//System.out.println("DB at " + position[0] + ", " + position[1]);
-			testBoard.breed(Board.getBug(row, col));
+			testBoard.breed(Board.getBug(position));
 			
 			//testBoard.printBoard();
 			
 		}
 		
 		antPositions = antPositions();
-		for (int i = 0; i < Board.numberOfAnts; i++)
+		int tempNumberOfAnts = Board.numberOfAnts;
+		for (int i = 0; i < tempNumberOfAnts; i++)
 		{
 			//Get Ant Coordinates
 			//position = Board.antScanner();		
@@ -388,87 +399,9 @@ public class Simulator {
 		
 		printPositions();
 		
-//		System.out.println("Doodlebugs");
-//		int [][] dbPositions = new int[Board.numberOfDoodlebugs][2];
-//		dbPositions = doodlebugPositions();
-//		for (int i = 0; i < Board.numberOfDoodlebugs; i++)
-//		{
-//			System.out.println(Arrays.toString(dbPositions[i]));
-//		}
-//		
-//		System.out.println("Ants");
-//		int[][] positions = new int[Board.numberOfAnts][2];
-//		positions = antPositions();
-//		for (int i = 0; i < Board.numberOfAnts; i++)
-//		{
-//			System.out.println(Arrays.toString(positions[i]));
-//		}
-		
-//		System.out.println("Doodlebugs");
-//		int [][] dbPositions = new int[Board.numberOfDoodlebugs][2];
-//		dbPositions = doodlebugPositions();
-//		for (int i = 0; i < Board.numberOfDoodlebugs; i++)
-//		{
-//			System.out.println(Arrays.toString(dbPositions[i]));
-//		}
-//		System.exit(0);
-		
-		//for (int j = 0; j < 20; j++)
-		//	Board.field[1][j] = null;
-		
-		//Print out testBoard
-//		testBoard.printBoard();
-//		
-//		System.out.println(testBoard.rowScan + " " + testBoard.colScan);
-//
-//		
-//		for (int i = 0; i < 101; i++)
-//		{
-//			int[] coord = testBoard.antScanner();
-//			int row = coord[0];
-//			int col = coord[1];
-//		System.out.println("Ant Scanner: (" + row + ", " + col + ")");
-//		System.out.println(testBoard.rowScan + " " + testBoard.colScan);
-//		}
-//		
-//		for (int i = 0; i < 5; i++)
-//		{
-//			int[] coord = testBoard.doodlebugScanner();
-//			int row = coord[0];
-//			int col = coord[1];
-//		System.out.println("DB Scanner: (" + row + ", " + col + ")");
-//		System.out.println(testBoard.rowScan + " " + testBoard.colScan);
-//		}
-		
-		//System.out.println(Board.field[0].length);
-//		Integer[] testArray = new Integer[] {1, 2, 3, 4};
-//		
-//		for (Integer i : testArray)
-//		{
-//			System.out.print(i);
-//		}
-//		System.out.println();
-//		
-//		Collections.shuffle(Arrays.asList(testArray));
-//		
-//		for (Integer i : testArray)
-//		{
-//			System.out.print(i);
-//		}
-//		
-//		System.out.println();
-//		
-//		Integer[] testAr = Board.randomDirections();
-//		
-//		for (int i = 0; i < 4; i++)
-//		{
-//			System.out.print(testAr[i]);
-//		}
-		
 		while (true)
 		{
 			turnSequence(testBoard);
-		
 		
 			testBoard.printBoard();
 			

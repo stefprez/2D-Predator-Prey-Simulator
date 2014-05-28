@@ -177,9 +177,9 @@ public class Board {
 	//Return true if there is an Ant in an adjacent cell to Doodlebug
 	public boolean antAdjacent(Doodlebug db)
 	{
-		System.out.println("antAdjacent");
-		System.out.println(db);
-		System.out.println();//Debug
+//		System.out.println("antAdjacent");
+//		System.out.println(db);
+//		System.out.println();//Debug
 		//Top left corner check
 		if (db.topFlag && db.leftFlag)
 		{
@@ -756,6 +756,7 @@ public class Board {
 		//Check breed threshold and open adjacent cell
 		if ((bug.timeSinceBreed == bug.breedThreshold) && this.emptyCellAdjacent(bug))
 		{
+			//System.out.println("Made it in the conditional!"); //Debug
 			int row = bug.getRowPosition();
 			int col = bug.getColPosition();
 			

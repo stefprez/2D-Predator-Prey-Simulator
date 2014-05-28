@@ -387,6 +387,16 @@ public class Simulator {
 			//testBoard.printBoard();
 			
 		}
+		
+		//STARVATION
+		//For all the doodlebugs...
+		dbPositions = doodlebugPositions();
+		tempNumberOfDoodlebugs = Board.numberOfDoodlebugs;
+		for (int i = 0; i < tempNumberOfDoodlebugs; i++)
+		{
+			testBoard.starve((Doodlebug)Board.getBug(dbPositions[i][0], dbPositions[i][1]));
+		}
+		
 	}
 
 	public static void main(String[] args)

@@ -527,8 +527,6 @@ public class Board {
 			System.exit(0);
 		}
 		
-		field[row][col] = null;
-		
 		if(field[row][col] instanceof Ant)
 		{
 			numberOfAnts--;
@@ -538,6 +536,8 @@ public class Board {
 		{
 			numberOfDoodlebugs--;
 		}
+		
+		field[row][col] = null;
 	}
 	
 	//Returns Integer array of 1 - 4 in a random order
@@ -878,4 +878,14 @@ public class Board {
 			}
 		}		
 	}
+
+	public void starve(Doodlebug db)
+	{
+		if (db.timeSinceEat >= Doodlebug.STARVE_THRESHOLD)
+		{
+			this.removeBug(db.getRowPosition(), db.getColPosition());
+		}
+	}
+
+
 }

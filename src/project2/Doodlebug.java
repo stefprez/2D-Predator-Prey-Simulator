@@ -3,7 +3,7 @@
  *
  * Create the Doodlebug subclass and default constructor
  * 
- * Project 2 due May 26, 2014
+ * Project 2 due May 28, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014
@@ -75,17 +75,6 @@ public class Doodlebug extends Organism
 					this.setColPosition(this.getColPosition() - 1);
 					break;
 		}
-	}
-	
-	public void move()
-	{
-		//Check for Ant
-		
-		//If Ant, eat.
-		
-		//If no ant, check for open space
-		//Move to open space
-		//If no open space, do not move
 	}
 	
 	public String toString()

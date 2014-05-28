@@ -3,7 +3,7 @@
  *
  * Create Ant subclass and default constructor
  * 
- * Project 2 due May 26, 2014
+ * Project 2 due May 28, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014
@@ -31,8 +31,6 @@ public class Ant extends Organism
 	{
 		super(a);
 	}
-	
-//	Integer[] directionOrder = Board.randomDirections();
 	
 	public void moveBug(int direction)
 	{

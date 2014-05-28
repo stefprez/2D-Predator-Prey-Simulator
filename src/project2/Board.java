@@ -6,10 +6,10 @@
  * 100 Ants and 5 Doodlebugs by default.
  * Contains methods to initialize the board,
  * check if a cell is occupied, place a bug in
- * a cell, and print out the board.
+ * a cell, and print out the board, as well
+ * as many others.
  * 
- * 
- * Project 2 due May 26, 2014
+ * Project 2 due May 28, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014
@@ -19,7 +19,6 @@ package project2;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
-//import java.util.Scanner;
 
 public class Board {
 	
@@ -27,10 +26,18 @@ public class Board {
 	static int numberOfAnts;
 	static int numberOfDoodlebugs;
 	Random randomNumGen = new Random();
+	
+	//Used for scanning efficiently through the field
 	static int rowScan = 0;
 	static int colScan = 0;
 	
-	//Default Constructor
+	/**
+	 * Default Constructor.
+	 * 
+	 * Sets numberOfAnts to 5 and numberOfDoodlebugs to 100.
+	 * Initialize the board with the given number of
+	 * ants and doodlebugs.
+	 */
 	public Board()
 	{
 		numberOfAnts = 100;
@@ -38,7 +45,14 @@ public class Board {
 		initializeBoard(numberOfAnts, numberOfDoodlebugs);
 	}
 	
-	//Complete Constructor
+	/**Complete Constructor
+	 * 
+	 * Sets numberOfAnts and numberOfDoodlebugs to the
+	 * given numbers and initializes the board with the given numbers.
+	 * 
+	 * @param ants Number of ants to initialize the board with
+	 * @param doodlebugs Number of doodlebugs to initialize the baord with
+	 */
 	public Board(int ants, int doodlebugs)
 	{
 		numberOfAnts = ants;
@@ -47,75 +61,77 @@ public class Board {
 		
 	}
 	
-	//Fill with Ants first, then Doodlebugs
+	/**
+	 * Fills the field randomly with Ants first, then Doodlebugs.
+	 * 
+	 * @param numAnt The number of ants to fill the board with.
+	 * @param numDoodlebugs The number of doodlebugs to fill the board with.
+	 */
 	public void initializeBoard(int numAnt, int numDoodlebugs)
 	{		
 		//Place Ants in field
 		for (int i = 0; i < numAnt; i++)
 		{
 			placeBug(new Ant(), numAnt);
-			//System.out.println("Ant Placement: " + i); //Debugging
 		}
 		
 		//Place Doodlebugs in field
 		for (int i = 0; i < numDoodlebugs; i++)
 		{
 			placeBug(new Doodlebug(), numDoodlebugs);
-			//System.out.println("Doodlebug Placement: " + i); //Debugging
 		}
-		
 	}
 	
-	//Check if cell is occupied, return true if occupied with Bug, otherwise false
+	/**
+	 * Check if cell is occupied by any type of Organism, return true if occupied, otherwise false
+	 * 
+	 * @param row Row position to check. Must be 0-19.
+	 * @param col Column position to check. Must be 0-19.
+	 * @return True if any type of Organism is occupying the cell. Otherwise false.
+	 */
 	public boolean isOccupied(int row, int col)
-	{
-		//System.out.println("isOccupied conditional says: " + (this.field[row][col].symbol != ' ')); //Debugging
-		
+	{	
 		//Check for null value in given field index
 		if (Board.field[row][col] != null)
 		{
-			//System.out.println("isOccupied returned true"); //Debug
 			return true;
 		}
 		
 		else
 		{
-			//System.out.println("isOccupied returned false"); //Debug
 			return false;
 		}
 	}
 	
-	//Place bug in empty cell. Only for initializing new board!
+	/**
+	 * Place an Organism in an empty cell. Only used for initializing
+	 * a new board!
+	 * 
+	 * @param bug The particular type of Organism to be placed. Must be an Ant or Doodlebug.
+	 * @param numBug The number of bugs to be placed.
+	 */
 	public void placeBug(Organism bug, int numBug)
 	{
 		//Declare and initialize random row and column values
 		int row = randomNumGen.nextInt(20);
 		int col = randomNumGen.nextInt(20);
 		
-		//int counter = 0; //debug
-		
 		//Cycle through field until an empty cell is found
 		while (this.isOccupied(row, col))
 		{
 			row = randomNumGen.nextInt(20);
 			col = randomNumGen.nextInt(20);
-			//counter++; //Debug
 		}
-
-		//System.out.println("Made if out of placeBug while loop: " + counter); //debug
 
 		//Place a new Ant in open cell
 		if(bug instanceof Ant)
 		{
-			//System.out.println("placeBug placed an Ant"); //Debug
 			field[row][col] = new Ant(row, col);
-			
 		}
 		
 		//Place a new Doodlebug in open cell
 		else if(bug instanceof Doodlebug)
 		{
-			//System.out.println("placeBug placed a DoodleBug");  //Debug
 			field[row][col]= new Doodlebug(row, col);
 		}
 		
@@ -123,63 +139,39 @@ public class Board {
 		else
 		{
 			System.out.println("Error in placeBug method! Did not place a bug in an open cell.");
+			System.exit(0);
 		}
 	}
 	
-	//Return Organism at given row and column
+	/**
+	 * Return Organism at given row and column
+	 * @param row Int value of row position.
+	 * @param col Int value of column position
+	 * @return Organism at given location, either Ant or Doodlebug, but must be type casted.
+	 */
 	public static Organism getBug(int row, int col)
 	{
-		//Catch out of bounds error
-//		if (row < 0 || col < 0)
-//		{
-//			System.out.println("Out of bounds in getBug!");
-//			System.exit(0);
-//		}
 		return field[row][col];
 	}
 	
-	//Return Organism at position given by array
+	/**
+	 * Return Organism at position given by array
+	 * @param position Array with row position in index 0 and column position in index 1.
+	 * @return Organism at given location, either Ant or Doodlebug, but must be type casted.
+	 */
 	public static Organism getBug(int[] position)
 	{
-		//Catch out of bounds error
-//		if (position[0] < 0 || position[1] < 0)
-//		{
-//			System.out.println("Out of bounds in getBug!");
-//			System.exit(0);
-//		}
 		return field[position[0]][position[1]];
 	}
 	
-	// Return int of null location (empty cell). 1 = Up, 2 = Right, 3 = Down, 4 = Left. 0 = No empty cells.
-	// 3 = Up/Right, 5 = Up/Down, 6 = Right/Down, 7 = Up/Right/Down,
-	// 9 = 8 + 1, 10 = 8 + 2, 11 = 8 + 2 + 1, 12 = 8 + 4
-	// 13 = 8 + 4 + 1, 14 = 8 + 4 + 2, 15 = 8 + 4 + 2 + 1.
-	public int emptyCellChecker(Organism bug)
-	{
-		int flag = 0;
-		
-		//Check four positions for null
-		if (getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null)
-			flag += 1;
-		
-		if (getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null)
-			flag += 2;
-		
-		if (getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null)
-			flag += 4;
-		
-		if (getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null)
-			flag += 8;
-		
-		return flag;
-	}
-	
-	//Return true if there is an Ant in an adjacent cell to Doodlebug
+	/**
+	 * Return true if there is an Ant in an adjacent cell to Doodlebug
+	 * 
+	 * @param db Doodlebug that you would like to look for ants near.
+	 * @return True if there is an Ant adjacent, False if not.
+	 */
 	public boolean antAdjacent(Doodlebug db)
 	{
-//		System.out.println("antAdjacent");
-//		System.out.println(db);
-//		System.out.println();//Debug
 		//Top left corner check
 		if (db.topFlag && db.leftFlag)
 		{
@@ -189,7 +181,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -205,7 +196,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -221,7 +211,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -237,7 +226,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -253,7 +241,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -270,7 +257,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -287,7 +273,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -304,7 +289,6 @@ public class Board {
 			{
 				return true;
 			}
-
 			else
 			{
 				return false;
@@ -320,14 +304,17 @@ public class Board {
 		{
 			return true;
 		}
-
 		else
 		{
 			return false;
 		}
 	}
 	
-	//Return true if there is an empty cell adjacent to the bug
+	/**
+	 * Return true if there is an empty cell adjacent to the bug
+	 * @param bug Organism that you would like to check for empty cells nearby.
+	 * @return True if an empty cell is adjacent. False otherwise.
+	 */
 	public boolean emptyCellAdjacent(Organism bug)
 	{
 		//Top left corner check
@@ -339,7 +326,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -355,7 +341,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -371,7 +356,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -387,7 +371,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -403,7 +386,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -420,7 +402,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -437,7 +418,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -454,7 +434,6 @@ public class Board {
 					{
 						return true;
 					}
-
 					else
 					{
 						return false;
@@ -470,18 +449,18 @@ public class Board {
 				{
 					return true;
 				}
-
 				else
 				{
 					return false;
 				}
 	}
 	
-	//Print out the current board with different bug symbols
+	/**
+	 * Print out the current board, along with current number
+	 * of ants and doodlebugs
+	 */
 	public void printBoard()
-	{
-		//System.out.println(this.field.length); //debug
-		
+	{		
 		//Top row border
 		System.out.println("   01234567890123456789 ");
 		
@@ -509,7 +488,9 @@ public class Board {
 			
 			//Prevent printing last empty line
 			if (i < field.length - 1)
+			{
 				System.out.println();
+			}
 		}
 		//Bottom row border
 		System.out.println("\n");
@@ -518,7 +499,12 @@ public class Board {
 
 	}
 	
-	//Takes position of bug and removes it, filling with null.
+	/**
+	 * Takes position of bug and removes it, filling with null.
+	 * 
+	 * @param row Row position of bug you would like to remove.
+	 * @param col Column position of bug you would like to remove.
+	 */
 	public void removeBug(int row, int col)
 	{
 		if (field[row][col] == null)
@@ -540,7 +526,12 @@ public class Board {
 		field[row][col] = null;
 	}
 	
-	//Returns Integer array of 1 - 4 in a random order
+	/**
+	 * Returns Integer array of 1 - 4 in a random order.
+	 * Used for picking a random direction to move, for example.
+	 * 
+	 * @return Integer array with 4 elements of 1-4 in a random order.
+	 */
 	public static Integer[] randomDirections()
 	{
 		Integer[] directionArray = new Integer[] {1, 2, 3, 4};
@@ -550,7 +541,13 @@ public class Board {
 		return directionArray;
 	}
 	
-	//Use to scan through field and return int array of position row, col
+	/**
+	 * Scans through the field and returns an array of positions in
+	 * row then column form of all of the Ants in the field.
+	 * 
+	 * @return Array of 2 element arrays, where the first element is the row,
+	 * and the second element is the column.
+	 */
 	public static int[] antScanner()
 	{
 		//System.out.println("DEBUG rowScan colScan: " + rowScan + " " + colScan);
@@ -592,7 +589,6 @@ public class Board {
 						rowScan++;
 						return new int[] {i, 19};
 					}
-					
 					else
 					{
 						colScan = j + 1;
@@ -614,16 +610,20 @@ public class Board {
 		return new int[] {-1, -1};
 	}
 	
-	//Use to scan through field and return int array of position row, col
+	/**
+	 * Scans through the field and returns an array of positions in
+	 * row then column form of all of the Doodlebugs in the field.
+	 * 
+	 * @return Array of 2 element arrays, where the first element is the row,
+	 * and the second element is the column.
+	 */
 	public static int[] doodlebugScanner()
 	{
 		for (int j = colScan; j < 20; j++)
 		{
 			//Finish partially completed row
 			if (field[rowScan][j] instanceof Doodlebug)
-			//if (field[rowScan][j].getClass() == new Doodlebug().getClass())
 			{
-				//System.out.println("We have an ant! " + rowScan + " " + j); //Debug
 				//Check for last column
 				if (colScan >= 19)
 				{
@@ -631,7 +631,6 @@ public class Board {
 					rowScan++;
 					return new int[] {rowScan - 1, 19};
 				}
-				
 				else
 				{
 					colScan = j + 1;
@@ -647,7 +646,6 @@ public class Board {
 		{
 			for (int j = colScan; j < 20; j++)
 			{
-				//if (field[i][j].getClass() ==  new Ant().getClass()) //Perhaps I should use instanceof?
 				if (field[i][j] instanceof Doodlebug)
 				{
 					if (j >= 19)
@@ -662,15 +660,9 @@ public class Board {
 						colScan = j + 1;
 						return new int[] {i, j};
 					}
-					
 				}
-				
-//				else if (j >= 19)
-//				{
-//					colScan = 0;
-//					rowScan++;
-//				}
 			}
+			
 			colScan = 0;
 			rowScan++;
 		}
@@ -680,7 +672,12 @@ public class Board {
 		return new int[] {-1, -1};
 	}
 	
-	//Takes a bug and a movement direction, and moves the bug to the new cell.
+	/**
+	 * Takes a bug and a movement direction, and moves the bug to the new cell in the given direction.
+	 * 
+	 * @param bug Organism, either Ant or Doodlebug, to be moved.
+	 * @param direction 1, 2, 3, or 4 only. 1 is up, 2 is right, 3 is down, 4 is left.
+	 */
 	public static void moveBug(Organism bug, int direction)
 	{
 		int rowPos = bug.getRowPosition();
@@ -751,12 +748,19 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * Takes a given bug, check if it meets the conditions to breed,
+	 * and if so, creates a new bug of the same type in an empty
+	 * adjacent cell.
+	 * 
+	 * @param bug The Organism, either Ant or Doodlebug, to be checked for breeding
+	 * eligibility.
+	 */
 	public void breed(Organism bug)
 	{
 		//Check breed threshold and open adjacent cell
 		if ((bug.timeSinceBreed == bug.breedThreshold) && this.emptyCellAdjacent(bug))
 		{
-			//System.out.println("Made it in the conditional!"); //Debug
 			int row = bug.getRowPosition();
 			int col = bug.getColPosition();
 			
@@ -779,7 +783,6 @@ public class Board {
 						if (Board.getBug(row - 1, col) == null)
 						{
 							field[row - 1][col] = new Ant(row - 1, col);
-							//Board.moveBug(Board.getBug(row, col), 1);
 							breedComplete = true;
 						}
 						break;
@@ -878,7 +881,13 @@ public class Board {
 			}
 		}		
 	}
-
+	
+	/**
+	 * Check if the given Doodlebug hasn't eaten in a certain number
+	 * of steps, and if so, it starves, and the Doodlebug is removed.
+	 * 
+	 * @param db The Doodlebug to be checked for starvation.
+	 */
 	public void starve(Doodlebug db)
 	{
 		if (db.timeSinceEat >= Doodlebug.STARVE_THRESHOLD)
@@ -886,6 +895,4 @@ public class Board {
 			this.removeBug(db.getRowPosition(), db.getColPosition());
 		}
 	}
-
-
 }

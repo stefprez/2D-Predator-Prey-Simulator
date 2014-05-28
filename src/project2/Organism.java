@@ -4,7 +4,7 @@
  * Create the Organism superclass with default constructor and
  * getSymbol method.
  * 
- * Project 2 due May 26, 2014
+ * Project 2 due May 28, 2014
  * 
  * @author Stefano Prezioso
  * @date May 15, 2014
@@ -13,11 +13,13 @@ package project2;
 
 public class Organism
 {
-	int breedThreshold;
+	int breedThreshold; //At what point the Organism breeds
 	int timeSinceBreed;
-	char symbol;
+	char symbol; //O for Ants, X for Doodlebugs
 	int rowPosition;
 	int colPosition;
+	
+	//Flags for against edges to prevent out of bounds exceptions.
 	boolean topFlag;
 	boolean rightFlag;
 	boolean bottomFlag;

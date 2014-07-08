@@ -175,8 +175,7 @@ public class Board {
 		//Top left corner check
 		if (db.topFlag && db.leftFlag)
 		{
-			if (
-					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
 					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) )
 			{
 				return true;
@@ -190,8 +189,7 @@ public class Board {
 		//Bottom right corner check
 		else if (db.bottomFlag && db.rightFlag)
 		{
-			if (
-					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
 			{
 				return true;
@@ -205,8 +203,7 @@ public class Board {
 		//Top right corner check
 		else if (db.topFlag && db.rightFlag)
 		{
-			if (
-					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
 			{
 				return true;
@@ -220,8 +217,7 @@ public class Board {
 		//Bottom left corner check
 		else if (db.bottomFlag && db.leftFlag)
 		{
-			if (
-					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) )
 			{
 				return true;
@@ -234,8 +230,7 @@ public class Board {
 		//Top row check
 		else if (db.topFlag)
 		{
-			if (
-					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
 					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
 			{
@@ -250,8 +245,7 @@ public class Board {
 		//Right column check
 		else if (db.rightFlag)
 		{
-			if (
-					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
 			{
@@ -266,8 +260,7 @@ public class Board {
 		//Bottom row check
 		else if (db.bottomFlag)
 		{
-			if (
-					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
 			{
@@ -282,8 +275,7 @@ public class Board {
 		//Left column check
 		else if (db.leftFlag)
 		{
-			if (
-					(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+			if (	(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
 					(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
 					(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) )
 			{
@@ -296,8 +288,7 @@ public class Board {
 		}
 
 		//Check four positions for Ant
-		else if (
-				(getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
+		else if ((getBug(db.getRowPosition() - 1, db.getColPosition()) instanceof Ant) ||
 				(getBug(db.getRowPosition(), db.getColPosition() + 1) instanceof Ant) ||
 				(getBug(db.getRowPosition() + 1, db.getColPosition()) instanceof Ant) ||
 				(getBug(db.getRowPosition(), db.getColPosition() - 1) instanceof Ant) )
@@ -318,141 +309,137 @@ public class Board {
 	public boolean emptyCellAdjacent(Organism bug)
 	{
 		//Top left corner check
-				if (bug.topFlag && bug.leftFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
-							(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
+		if (bug.topFlag && bug.leftFlag)
+		{
+			if (	(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
+					(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-				//Bottom right corner check
-				else if (bug.bottomFlag && bug.rightFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
+		//Bottom right corner check
+		else if (bug.bottomFlag && bug.rightFlag)
+		{
+			if ((getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
+				(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-				//Top right corner check
-				else if (bug.topFlag && bug.rightFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
+		//Top right corner check
+		else if (bug.topFlag && bug.rightFlag)
+		{
+			if ((getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
+				(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-				//Bottom left corner check
-				else if (bug.bottomFlag && bug.leftFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
-				//Top row check
-				else if (bug.topFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
-							(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
+		//Bottom left corner check
+		else if (bug.bottomFlag && bug.leftFlag)
+		{
+			if ((getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
+					(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		//Top row check
+		else if (bug.topFlag)
+		{
+			if (
+					(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
+					(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
+					(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-				//Right column check
-				else if (bug.rightFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
+		//Right column check
+		else if (bug.rightFlag)
+		{
+			if (
+					(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
+					(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
+					(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		//Bottom row check
+		else if (bug.bottomFlag)
+		{
+			if (
+					(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
+					(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
+					(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-				//Bottom row check
-				else if (bug.bottomFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
+		//Left column check
+		else if (bug.leftFlag)
+		{
+			if (
+					(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
+					(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
+					(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 
-				//Left column check
-				else if (bug.leftFlag)
-				{
-					if (
-							(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
-							(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
-							(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) )
-					{
-						return true;
-					}
-					else
-					{
-						return false;
-					}
-				}
-
-				//Check four positions for Ant
-				else if (
-						(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
-						(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
-						(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
-						(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
-				{
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+		//Check four positions for Ant
+		else if (
+				(getBug(bug.getRowPosition() - 1, bug.getColPosition()) == null) ||
+				(getBug(bug.getRowPosition(), bug.getColPosition() + 1) == null) ||
+				(getBug(bug.getRowPosition() + 1, bug.getColPosition()) == null) ||
+				(getBug(bug.getRowPosition(), bug.getColPosition() - 1) == null) )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 	/**

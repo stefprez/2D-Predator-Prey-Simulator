@@ -12,7 +12,10 @@ package project2;
 
 public class Ant extends Organism
 {
-	
+	/**
+	* Empty Constructor.
+	* Sets symbol to 'O' and breedThreshold to 3.
+	*/
 	public Ant()
 	{
 		super();
@@ -20,6 +23,13 @@ public class Ant extends Organism
 		this.breedThreshold = 3;
 	}
 	
+	/**
+	* Complete Constructor.
+	* Places Ant at given row and col values, sets symbol to 'O'
+	* and breedThreshold to 3.
+	* @param row The row position the new Ant will occupy.
+	* @param col The column position the new Ant will occupy.
+	*/
 	public Ant(int row, int col)
 	{
 		super(row, col);
@@ -27,16 +37,24 @@ public class Ant extends Organism
 		this.breedThreshold = 3;
 	}
 	
+	/**
+	* Copy Constructor
+	* @param a The Ant object to be copied.
+	*/
 	public Ant (Ant a)
 	{
 		super(a);
 	}
 	
+	/**
+	* Moves called bug in the given direction.
+	* @param direction The direction for the bug to be moved. Must be 1, 2, 3, or 4.
+	*/
 	public void moveBug(int direction)
 	{
 		if (direction < 1 || direction > 4)
 		{
-			System.out.println("Error: Improper moveBug parameter.");
+			System.err.println("Error: Improper moveBug parameter.");
 			System.exit(0);
 		}
 		

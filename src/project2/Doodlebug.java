@@ -15,7 +15,9 @@ public class Doodlebug extends Organism
 	final static int STARVE_THRESHOLD = 3;
 	int timeSinceEat;
 	
-	//Empty Constructor
+	/**
+	* Empty Constructor
+	*/
 	public Doodlebug()
 	{
 		super();
@@ -24,7 +26,11 @@ public class Doodlebug extends Organism
 		this.timeSinceEat = 0;
 	}
 	
-	//Complete Constructor
+	/**
+	* Complete Constructor.
+	* @param row Row position of new Doodlebug
+	* @param col Column position of new Doodlebug
+	*/
 	public Doodlebug(int row, int col)
 	{
 		super(row, col);
@@ -33,6 +39,10 @@ public class Doodlebug extends Organism
 		this.timeSinceEat = 0;
 	}
 	
+	/**
+	* Copy Constructor
+	* @param d Doodlebug to be copied
+	*/
 	public Doodlebug(Doodlebug d)
 	{
 		super(d);
@@ -41,7 +51,10 @@ public class Doodlebug extends Organism
 		this.timeSinceEat = d.timeSinceEat;
 	}
 	
-	//Takes int 1, 2, 3, or 4, and moves bug up, right, down, or left respectively
+	/**
+	* Takes int 1, 2, 3, or 4, and moves bug up, right, down, or left respectively.
+	* @param direction The direction in which to move the bug.
+	*/
 	public void moveBug(int direction)
 	{
 		if (direction < 1 || direction > 4)
@@ -77,6 +90,11 @@ public class Doodlebug extends Organism
 		}
 	}
 	
+	/**
+	* Returns the position, four flag values, time since last ate,
+	* and time since last bred as a String.
+	* @return String of information and values about Doodlebug
+	*/
 	public String toString()
 	{
 		return "Doodlebug at " +  this.getRowPosition() + ", " + this.getColPosition() + "\n" +

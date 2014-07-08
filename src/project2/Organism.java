@@ -25,6 +25,9 @@ public class Organism
 	boolean bottomFlag;
 	boolean leftFlag;
 	
+	/**
+	* Empty Constructor
+	*/
 	public Organism()
 	{
 		this.setRowPosition(-1);
@@ -37,6 +40,11 @@ public class Organism
 		
 	}
 	
+	/**
+	* Complete Constructor
+	* @param row The row position of the new Organism 
+	* @param col The column position of the new Organism
+	*/
 	public Organism(int row, int col)
 	{
 		this.setRowPosition(row);
@@ -44,7 +52,10 @@ public class Organism
 		this.timeSinceBreed = 0;
 	}
 	
-	//Copy Constructor
+	/**
+	* Copy Constructor
+	* @param o Organism to be copied
+	*/
 	public Organism(Organism o)
 	{
 		this.breedThreshold = o.breedThreshold;
@@ -54,21 +65,34 @@ public class Organism
 		this.setColPosition(o.getColPosition());
 	}
 	
+	/**
+	* @return symbol as char
+	*/
 	public char getSymbol()
 	{
 		return this.symbol;
 	}
 	
+	/**
+	* @return row position as int
+	*/
 	public int getRowPosition()
 	{
 		return this.rowPosition;
 	}
 	
+	/**
+	* @return column position as int
+	*/
 	public int getColPosition()
 	{
 		return this.colPosition;
 	}
 	
+	/**
+	* Sets flags if along edge or in corner of board.
+	* @param row New row position
+	*/
 	public void setRowPosition(int row)
 	{
 		this.topFlag = false;
@@ -87,6 +111,10 @@ public class Organism
 		}
 	}
 	
+	/**
+	* Sets flags if along edge or in corner of board.
+	* @param col New column position
+	*/
 	public void setColPosition(int col)
 	{
 		this.leftFlag = false;

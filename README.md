@@ -1,4 +1,4 @@
-Project2
+2D Predator Prey Simulator
 ========
 
 COSC 211 Project 2

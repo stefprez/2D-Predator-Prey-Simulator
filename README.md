@@ -3,7 +3,8 @@ Project2
 
 COSC 211 Project 2
 
-From Absolute Java, Fifth Edition by
+From Absolute Java, Fifth Edition by Walter Savitch
+
 Chapter 8, Programming Project #4
 
 
